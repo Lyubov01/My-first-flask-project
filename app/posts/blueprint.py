@@ -20,9 +20,21 @@ def create_post():
             db.session.commit()
         except:
             print('Something wrong')
-        return redirect( url_for('posts.index') )
+        return redirect(url_for('posts.index'))
     form = PostForm()
     return render_template('posts/create_post.html', form=form)
+
+
+# @posts.route('/<slug>/edit', methods=['POST', 'GET'])
+# def edit_post(slug):
+#     post = Post.query.filter(Post.slug == slug).first()
+#     if request.method == 'POST':
+#         form = PostForm(formdata=request.form, obj=post)
+#         form.populate_obj(post)
+#         db.session.commit()
+#         return redirect(url_for('posts.post_detail', slug=post.slug))
+#     form = PostForm(obj=post)
+#     return render_template('posts/edit_form.html', post=post, form=form)
 
 
 @posts.route('/')
@@ -47,7 +59,7 @@ def post_detail(slug):
     post = Post.query.filter(Post.slug == slug).first()
     tags = post.tags
 
-    return render_template('posts/post_detail.html', tags=tags)
+    return render_template('posts/post_detail.html', post=post, tags=tags)
 
 
 @posts.route('/tag/<slug>')
