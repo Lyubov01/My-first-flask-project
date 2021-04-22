@@ -38,7 +38,11 @@
         <li class="nav-item">
 
           <a class="navbar-brand" href="{{url_for('posts.create_post')}}">New Post</a>
-
+        <li>
+        {% if current_user.has_role('admin') %}
+          <a href="/admin">Admin</a>
+        {% endif %}
+        </li>
         </li>
       </ul>
 
